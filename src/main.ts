@@ -72,6 +72,14 @@ async function start() {
   (window as unknown as { __map: maplibregl.Map }).__map = map;
 
   map.on('load', () => {
+    for (const k of ['day', 'night', 'low-day', 'low-night'] as const) {
+      map.addImage(k === 'day' || k === 'night' ? `facade-${k}` : k, facade(k), { pixelRatio: 2 });
+    }
+    if (map.getLayer('building-3d')) {
+      (map as unknown as { setPaintProperty(id: string, p: string, v: unknown): void }).setPaintProperty('building-3d', 'fill-extrusion-pattern', facadeExpr(false));
+    }
+    // Lumière rasante de fin d'après-midi : les façades au soleil et à l'ombre se distinguent
+    map.setLight({ anchor: 'map', position: [1.4, 230, 35], color: '#fff3e0', intensity: 0.55 });
     map.setSky?.({ 'sky-color': '#BFD9F0', 'horizon-color': '#F7EBDD', 'fog-color': '#F3EEE4', 'sky-horizon-blend': 0.6, 'horizon-fog-blend': 0.6, 'fog-ground-blend': 0.4 });
 
     // Tracés : trajet à venir (pointillés blancs) et parcouru (violet), tournée
@@ -141,6 +149,19 @@ async function start() {
           p = clamp01((vh * 0.55 - r.top) / Math.max(1, r.height));
           break;
         }
+      }
+      // Cadres de texte : un seul à la fois, avec un fondu (fini les chevauchements)
+      for (const sec of sections) {
+        const card = sec.querySelector<HTMLElement>(':scope > .card, :scope > .pros');
+        if (!card || sec.classList.contains('solid') || sec.classList.contains('final')) continue;
+        const r = sec.getBoundingClientRect();
+        const lp = (vh * 0.55 - r.top) / Math.max(1, r.height);
+        const fadeIn = sec.dataset.scene === 'hero' ? 1 : clamp01(lp / 0.07);
+        const fadeOut = clamp01((1 - lp) / 0.12);
+        const o = Math.min(fadeIn, fadeOut);
+        card.style.opacity = o.toFixed(3);
+        card.style.transform = `translateY(${((1 - o) * (lp < 0.5 ? 24 : -24)).toFixed(1)}px)`;
+        card.style.pointerEvents = o > 0.5 ? 'auto' : 'none';
       }
       const orbit = reduced ? 0 : Math.sin(now / 9) * 8;
       let target: Cam;
@@ -267,6 +288,37 @@ async function start() {
   map.on('error', (e) => console.warn('Carte :', (e as unknown as { error?: Error }).error?.message));
 }
 
+/** Motif de façade : rangées de fenêtres (jour) ou fenêtres éclairées (nuit) */
+function facade(kind: 'day' | 'night' | 'low-day' | 'low-night'): ImageData {
+  const S = 128; // 64 px affichés (pixelRatio 2)
+  const c = document.createElement('canvas');
+  c.width = c.height = S;
+  const g = c.getContext('2d')!;
+  const night = kind.endsWith('night');
+  const low = kind.startsWith('low');
+  g.fillStyle = night ? (low ? '#2a2836' : '#2f2c40') : low ? '#EFE7DA' : '#E6E2DA';
+  g.fillRect(0, 0, S, S);
+  if (low) {
+    // Maisons et petits bâtiments : enduit uni (pas de fenêtres sur les toits vus d'en haut)
+    g.fillStyle = night ? '#302d3f' : '#E8DFD0';
+    for (let i = 0; i < 10; i++) g.fillRect((i * 41) % S, (i * 67) % S, 18, 3);
+    return g.getImageData(0, 0, S, S);
+  }
+  // Immeubles : 6 × 6 fenêtres fines par motif, une sur deux éclairée la nuit (pseudo-aléatoire stable)
+  let seed = 7;
+  const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+  for (let row = 0; row < 6; row++) {
+    for (let col = 0; col < 6; col++) {
+      const x = 6 + col * 20, y = 6 + row * 20;
+      if (night) g.fillStyle = rnd() < 0.5 ? (rnd() < 0.7 ? '#f2bd62' : '#fde4a8') : '#3a3650';
+      else g.fillStyle = rnd() < 0.2 ? '#b4c6d4' : '#c2d2de';
+      g.fillRect(x, y, 11, 12);
+    }
+  }
+  return g.getImageData(0, 0, S, S);
+}
+const facadeExpr = (night: boolean) => ['case', ['>', ['get', 'render_height'], 9], night ? 'facade-night' : 'facade-day', night ? 'low-night' : 'low-day'];
+
 /** Palette de nuit : la ville éclairée (routes couleur sodium, eau sombre, immeubles bleutés) */
 const dayPaint = new Map<string, unknown>();
 function applyNight(map: maplibregl.Map, on: boolean) {
@@ -283,7 +335,7 @@ function applyNight(map: maplibregl.Map, on: boolean) {
       if (l.id === 'water') set(l.id, 'fill-color', '#1b2740');
       else set(l.id, 'fill-color', '#1f1d29');
     } else if (l.type === 'fill-extrusion') {
-      set(l.id, 'fill-extrusion-color', ['interpolate', ['linear'], ['get', 'render_height'], 0, '#2b2937', 30, '#383450', 90, '#4a4470']);
+      m.setPaintProperty(l.id, 'fill-extrusion-pattern', facadeExpr(on));
     } else if (l.type === 'line') {
       if (/casing/.test(l.id)) set(l.id, 'line-color', '#121119');
       else if (/water|river/.test(l.id)) set(l.id, 'line-color', '#1b2740');

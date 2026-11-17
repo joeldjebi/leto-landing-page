@@ -4,6 +4,26 @@ import * as THREE from 'three';
 export const VIOLET = 0x6d28d9;
 export const INK = 0x121214;
 
+/** Ombre douce au sol (disque dégradé) */
+let shadowTex: THREE.Texture | null = null;
+export function groundShadow(rx: number, rz: number, opacity = 0.32) {
+  if (!shadowTex) {
+    const c = document.createElement('canvas');
+    c.width = c.height = 128;
+    const g = c.getContext('2d')!;
+    const grad = g.createRadialGradient(64, 64, 4, 64, 64, 62);
+    grad.addColorStop(0, 'rgba(0,0,0,1)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = grad;
+    g.fillRect(0, 0, 128, 128);
+    shadowTex = new THREE.CanvasTexture(c);
+  }
+  const s = new THREE.Mesh(new THREE.PlaneGeometry(rx * 2, rz * 2), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, opacity, depthWrite: false }));
+  s.rotation.x = -Math.PI / 2;
+  s.position.y = 0.02;
+  return s;
+}
+
 const mat = (color: number, opts: Partial<THREE.MeshStandardMaterialParameters> = {}) =>
   new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0.05, ...opts });
 
@@ -34,6 +54,7 @@ let sharedBoxTex: THREE.Texture | null = null;
  */
 export function makeRider(opts: { jacket?: number; helmet?: number; lights?: boolean } = {}) {
   const g = new THREE.Group();
+  g.add(groundShadow(1.5, 0.75));
   const black = mat(0x1b1b20, { roughness: 0.8 });
   const chrome = mat(0xc9ccd4, { metalness: 0.8, roughness: 0.25 });
   const body = mat(VIOLET, { roughness: 0.35, metalness: 0.2 });
@@ -121,15 +142,15 @@ export function makeRider(opts: { jacket?: number; helmet?: number; lights?: boo
   // De nuit : faisceau du phare
   if (opts.lights) {
     const beam = new THREE.Mesh(
-      new THREE.ConeGeometry(1.6, 6, 24, 1, true),
-      new THREE.MeshBasicMaterial({ color: 0xfff1b8, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }),
+      new THREE.ConeGeometry(0.9, 4, 24, 1, true),
+      new THREE.MeshBasicMaterial({ color: 0xfff1b8, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }),
     );
     beam.rotation.z = Math.PI / 2;
-    beam.position.set(3.8, 0.7, 0);
+    beam.position.set(2.8, 0.8, 0);
     g.add(beam);
-    const glow = new THREE.Mesh(new THREE.CircleGeometry(2.4, 32), new THREE.MeshBasicMaterial({ color: 0xffd98a, transparent: true, opacity: 0.18, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const glow = new THREE.Mesh(new THREE.CircleGeometry(1.1, 32), new THREE.MeshBasicMaterial({ color: 0xffd98a, transparent: true, opacity: 0.14, blending: THREE.AdditiveBlending, depthWrite: false }));
     glow.rotation.x = -Math.PI / 2;
-    glow.position.set(4.2, 0.03, 0);
+    glow.position.set(3.4, 0.03, 0);
     g.add(glow);
   }
   g.traverse((o) => {
@@ -141,6 +162,7 @@ export function makeRider(opts: { jacket?: number; helmet?: number; lights?: boo
 /** Personnage debout (client, commerçant) : unités en mètres, face vers +X */
 export function makePerson(opts: { shirt: number; pants?: number; skin?: number; headwrap?: number; parcel?: boolean }) {
   const g = new THREE.Group();
+  g.add(groundShadow(0.55, 0.45, 0.35));
   const skin = mat(opts.skin ?? 0x6b4428, { roughness: 0.6 });
   const shirt = mat(opts.shirt, { roughness: 0.75 });
   const pants = mat(opts.pants ?? 0x23262f, { roughness: 0.8 });

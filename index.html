@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>LETO · Livraison à Abidjan, suivie en direct</title>
+  <meta name="description" content="Faites livrer vos colis partout à Abidjan, à moto, en voiture ou en cargo. Un ou dix destinataires, suivi en direct, paiement en espèces. 2 200 F maximum à moto dans le Grand Abidjan.">
+  <meta property="og:title" content="LETO · Livraison à Abidjan, suivie en direct">
+  <meta property="og:description" content="Un ou dix destinataires, suivi en direct, paiement en espèces. 2 200 F maximum à moto dans le Grand Abidjan.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#121214">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Carte 3D réelle d'Abidjan, en fond de toute la page -->
+  <div id="map" aria-hidden="true"></div>
+  <div class="veil" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="LETO, accueil">
+      <span class="brand-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 18.5a3 3 0 100-6 3 3 0 000 6z M18.5 18.5a3 3 0 100-6 3 3 0 000 6z M5.5 15.5l3.5-6h5l4.5 6 M9 9.5L7.5 6.5H5 M14 9.5l1.5-4H19"/></svg></span>
+      LETO
+    </a>
+    <nav class="links" aria-label="Navigation principale">
+      <a href="#comment">Comment ça marche</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="#pros">Entreprises et livreurs</a>
+      <a href="#faq">Questions</a>
+    </nav>
+    <a class="btn dark" href="#telecharger">Télécharger l’app</a>
+  </header>
+
+  <!-- Suivi en direct (scène « en route ») -->
+  <aside id="live" class="live" aria-live="polite">
+    <div class="live-head">
+      <span class="avatar">K</span>
+      <div><b>Koffi · Moto</b><small id="live-step">Départ du Plateau</small></div>
+      <div class="eta"><small>ARRIVÉE</small><b id="live-eta">9 min</b></div>
+    </div>
+    <div class="bar"><span id="live-bar"></span></div>
+  </aside>
+
+  <main>
+    <section id="top" class="scene hero" data-scene="hero">
+      <div class="card glass">
+        <span class="pill"><i></i>Livraison à Abidjan, en temps réel</span>
+        <h1>Vos colis livrés,<br><em>partout à Abidjan.</em></h1>
+        <p>Un ou dix destinataires, à moto, en voiture ou en cargo. Suivez votre livreur en direct et payez en espèces à la remise du colis.</p>
+        <div class="actions">
+          <a class="btn violet" href="#telecharger">Commander une livraison</a>
+          <a class="btn light" href="#pros">Devenir partenaire</a>
+        </div>
+        <ul class="checks">
+          <li>2 200 F maximum à moto</li><li>Livreurs vérifiés</li><li>Suivi en direct</li>
+        </ul>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">Faites défiler : suivez une vraie livraison</div>
+    </section>
+
+    <section id="comment" class="scene" data-scene="order" style="--h: 150vh">
+      <div class="card glass">
+        <span class="step">01 · Vous commandez</span>
+        <h2>Posez l’adresse. Le prix s’affiche.</h2>
+        <p>Aïcha, au Plateau, envoie un colis à Moussa, à Marcory. Elle place l’adresse sur la carte : LETO calcule le trajet par les vraies routes et affiche le prix avant de valider.</p>
+      </div>
+    </section>
+
+    <section class="scene" data-scene="track" style="--h: 260vh">
+      <div class="card glass">
+        <span class="step">02 · Vous suivez en direct</span>
+        <h2>Le livreur avance. Vous le voyez.</h2>
+        <p>Koffi traverse la lagune par le pont. Aïcha et Moussa suivent la moto en temps réel, même écran verrouillé, avec l’heure d’arrivée qui se met à jour.</p>
+      </div>
+    </section>
+
+    <section class="scene" data-scene="delivered" style="--h: 150vh">
+      <div class="card glass">
+        <span class="step">03 · C’est livré, prouvé</span>
+        <h2>Un code. Le bon destinataire.</h2>
+        <p>Moussa donne son code à 4 chiffres : le colis ne peut être remis qu’à lui. Absent ? Le livreur prouve son passage par GPS et photo.</p>
+      </div>
+    </section>
+
+    <section class="scene" data-scene="tour" style="--h: 200vh">
+      <div class="card glass">
+        <span class="step">Tournées</span>
+        <h2>Dix adresses. Une course. Le bon ordre.</h2>
+        <p>LETO enchaîne les arrêts au plus court, ici 6 clients entre Cocody et la Riviera. Et plus il y a d’arrêts, moins chaque livraison coûte.</p>
+        <div class="chips"><span>2 adresses · −5 %</span><span>4 adresses · −15 %</span><span class="strong">6 et + · −25 %</span></div>
+      </div>
+    </section>
+
+    <section id="tarifs" class="scene" data-scene="price" style="--h: 170vh">
+      <div class="card dark">
+        <span class="step light">Tarifs clairs</span>
+        <h2 class="big">2 200 F<br><em>maximum.</em></h2>
+        <p>À moto, partout dans le Grand Abidjan, en livraison Standard. Le prix dépend de la distance : souvent bien moins.</p>
+        <div class="sim">
+          <div class="sim-row">
+            <label>Départ<select id="sim-from"></select></label>
+            <label>Arrivée<select id="sim-to"></select></label>
+          </div>
+          <div class="prices">
+            <div><small>Dans 2 h</small><b id="sim-2h">—</b></div>
+            <div class="on"><small>Standard</small><b id="sim-std">—</b></div>
+            <div><small>Express</small><b id="sim-exp">—</b></div>
+          </div>
+          <small class="note">Estimation pour <span id="sim-km">—</span>, hors majorations (pointe, nuit, pluie). Le prix exact s’affiche dans l’app avant de commander.</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene" data-scene="trust" style="--h: 170vh">
+      <div class="card glass night">
+        <span class="step">Confiance</span>
+        <h2>Jour et nuit, des livreurs vérifiés.</h2>
+        <ul class="trust">
+          <li><b>Livreurs vérifiés</b>Pièce d’identité, permis, carte grise et selfie contrôlés avant la première course.</li>
+          <li><b>Code de livraison</b>Chaque destinataire a son code : le colis n’est remis qu’à la bonne personne.</li>
+          <li><b>Preuve de passage</b>Absent ? Position GPS, temps d’attente et photo, consultables par l’expéditeur.</li>
+          <li><b>Paiement en espèces</b>Pas de carte. Pour les boutiques, le livreur encaisse la marchandise à la livraison.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="pros" class="scene wide" data-scene="pros" style="--h: 150vh">
+      <div class="pros">
+        <article class="card glass night">
+          <span class="step">Entreprises de livraison</span>
+          <h2>Votre flotte, vos prix, nos clients.</h2>
+          <p>Carte en direct de vos livreurs, affectation des courses, encaissements, carnet des livreurs et vos propres tarifs, dans un back-office complet.</p>
+          <a class="btn dark" href="#contact">Devenir entreprise partenaire</a>
+        </article>
+        <article class="card glass night">
+          <span class="step">Livreurs indépendants</span>
+          <h2>Votre engin. Vos horaires.</h2>
+          <p>Inscrivez-vous dans l’app avec votre pièce et les papiers de votre engin. Une fois validé par LETO, recevez les courses autour de vous, avec un son, même écran verrouillé.</p>
+          <a class="btn violet" href="#telecharger">S’inscrire comme livreur</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq" class="scene solid" data-scene="faq">
+      <div class="faq">
+        <h2>Questions fréquentes</h2>
+        <details><summary>Comment je paie ma livraison ?</summary><p>En espèces, au livreur. Le prix est affiché et fixé avant de commander.</p></details>
+        <details><summary>Combien d’adresses dans une même course ?</summary><p>Jusqu’à 10 destinataires. LETO calcule l’ordre le plus court et le prix baisse avec le nombre d’arrêts.</p></details>
+        <details><summary>Que se passe-t-il si le destinataire est absent ?</summary><p>Le livreur attend sur place, prouve son passage (GPS et photo) et vous êtes prévenu. Vous pouvez contester depuis l’app.</p></details>
+        <details><summary>C’est quoi un livreur indépendant ?</summary><p>Un livreur qui n’appartient à aucune entreprise partenaire, vérifié par LETO. Il est toujours signalé clairement avant que vous acceptiez.</p></details>
+      </div>
+    </section>
+
+    <section id="telecharger" class="scene final" data-scene="final">
+      <div class="card cta">
+        <h2>Votre prochain colis part maintenant.</h2>
+        <p>Téléchargez LETO, posez l’adresse, c’est parti.</p>
+        <div class="actions">
+          <a class="store" href="#top"><small>Bientôt sur</small><b>App Store</b></a>
+          <a class="store" href="#top"><small>Bientôt sur</small><b>Google Play</b></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="footer">
+    <span><b>LETO</b> Livraison à Abidjan</span>
+    <span>[Téléphone] · [E-mail] · [Adresse]</span>
+    <span>© 2026 LETO · Carte © OpenStreetMap, OpenFreeMap</span>
+  </footer>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

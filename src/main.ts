@@ -1,11 +1,15 @@
 import * as maplibregl from 'maplibre-gl';
 import type { GeoJSONSource, StyleSpecification } from 'maplibre-gl';
+// Le « worker » de MapLibre, empaqueté par Vite (sinon introuvable une fois le site construit)
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './style.css';
 import data from './data/routes.json';
 import { makePerson, makePin, makeRider } from './models';
 import { clamp01, ease, lerp, lerpAngle, Route } from './route';
 import { Scene3D, type LngLat, type Placed } from './scene3d';
+
+maplibregl.setWorkerUrl(workerUrl);
 
 const STYLE_URL = 'https://tiles.openfreemap.org/styles/liberty';
 const VIOLET = '#6D28D9';

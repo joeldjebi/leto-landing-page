@@ -52,7 +52,7 @@ let sharedBoxTex: THREE.Texture | null = null;
  * Livreur LETO sur sa moto (unités : mètres, face vers +X, Y vers le haut).
  * Proportions réelles d'une moto 125 cm³ (≈ 2 m de long).
  */
-export function makeRider(opts: { jacket?: number; helmet?: number; lights?: boolean } = {}) {
+export function makeRider(opts: { jacket?: number; helmet?: number; lights?: boolean; rider?: boolean } = {}) {
   const g = new THREE.Group();
   g.add(groundShadow(1.5, 0.75));
   const black = mat(0x1b1b20, { roughness: 0.8 });
@@ -108,37 +108,38 @@ export function makeRider(opts: { jacket?: number; helmet?: number; lights?: boo
   tail.position.set(-0.93, 0.98, 0);
   g.add(tail);
 
-  // Pilote : jambes, buste, bras, casque
-  const jacket = mat(opts.jacket ?? INK, { roughness: 0.7 });
-  const jeans = mat(0x2f3a55, { roughness: 0.8 });
-  for (const z of [-0.16, 0.16]) {
-    const thigh = new THREE.Mesh(new THREE.CapsuleGeometry(0.08, 0.36, 4, 8), jeans);
-    thigh.rotation.z = Math.PI / 2 - 0.25;
-    thigh.position.set(0.0, 1.02, z);
-    g.add(thigh);
-    const shin = new THREE.Mesh(new THREE.CapsuleGeometry(0.07, 0.34, 4, 8), jeans);
-    shin.rotation.z = 0.15;
-    shin.position.set(0.2, 0.74, z * 1.1);
-    g.add(shin);
+  if (opts.rider !== false) {
+    // Pilote : jambes, buste, bras, casque
+    const jacket = mat(opts.jacket ?? INK, { roughness: 0.7 });
+    const jeans = mat(0x2f3a55, { roughness: 0.8 });
+    for (const z of [-0.16, 0.16]) {
+      const thigh = new THREE.Mesh(new THREE.CapsuleGeometry(0.08, 0.36, 4, 8), jeans);
+      thigh.rotation.z = Math.PI / 2 - 0.25;
+      thigh.position.set(0.0, 1.02, z);
+      g.add(thigh);
+      const shin = new THREE.Mesh(new THREE.CapsuleGeometry(0.07, 0.34, 4, 8), jeans);
+      shin.rotation.z = 0.15;
+      shin.position.set(0.2, 0.74, z * 1.1);
+      g.add(shin);
+    }
+    const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.2, 0.42, 6, 12), jacket);
+    torso.position.set(-0.12, 1.45, 0);
+    torso.rotation.z = -0.32;
+    g.add(torso);
+    for (const z of [-0.24, 0.24]) {
+      const arm = new THREE.Mesh(new THREE.CapsuleGeometry(0.065, 0.48, 4, 8), jacket);
+      arm.rotation.z = -1.0;
+      arm.rotation.x = z > 0 ? -0.15 : 0.15;
+      arm.position.set(0.22, 1.36, z);
+      g.add(arm);
+    }
+    const helmet = new THREE.Mesh(new THREE.SphereGeometry(0.17, 20, 16), mat(opts.helmet ?? VIOLET, { roughness: 0.25, metalness: 0.3 }));
+    helmet.position.set(0.0, 1.88, 0);
+    g.add(helmet);
+    const visor = new THREE.Mesh(new THREE.SphereGeometry(0.13, 16, 12, -Math.PI / 2.4, Math.PI / 1.2, Math.PI / 3, Math.PI / 3), mat(0x1d2633, { roughness: 0.1, metalness: 0.6 }));
+    visor.position.set(0.06, 1.88, 0);
+    g.add(visor);
   }
-  const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.2, 0.42, 6, 12), jacket);
-  torso.position.set(-0.12, 1.45, 0);
-  torso.rotation.z = -0.32;
-  g.add(torso);
-  for (const z of [-0.24, 0.24]) {
-    const arm = new THREE.Mesh(new THREE.CapsuleGeometry(0.065, 0.48, 4, 8), jacket);
-    arm.rotation.z = -1.0;
-    arm.rotation.x = z > 0 ? -0.15 : 0.15;
-    arm.position.set(0.22, 1.36, z);
-    g.add(arm);
-  }
-  const helmet = new THREE.Mesh(new THREE.SphereGeometry(0.17, 20, 16), mat(opts.helmet ?? VIOLET, { roughness: 0.25, metalness: 0.3 }));
-  helmet.position.set(0.0, 1.88, 0);
-  g.add(helmet);
-  const visor = new THREE.Mesh(new THREE.SphereGeometry(0.13, 16, 12, -Math.PI / 2.4, Math.PI / 1.2, Math.PI / 3, Math.PI / 3), mat(0x1d2633, { roughness: 0.1, metalness: 0.6 }));
-  visor.position.set(0.06, 1.88, 0);
-  g.add(visor);
-
   // De nuit : faisceau du phare
   if (opts.lights) {
     const beam = new THREE.Mesh(
@@ -160,7 +161,7 @@ export function makeRider(opts: { jacket?: number; helmet?: number; lights?: boo
 }
 
 /** Personnage debout (client, commerçant) : unités en mètres, face vers +X */
-export function makePerson(opts: { shirt: number; pants?: number; skin?: number; headwrap?: number; parcel?: boolean }) {
+export function makePerson(opts: { shirt: number; pants?: number; skin?: number; headwrap?: number; parcel?: boolean; helmet?: number }) {
   const g = new THREE.Group();
   g.add(groundShadow(0.55, 0.45, 0.35));
   const skin = mat(opts.skin ?? 0x6b4428, { roughness: 0.6 });
@@ -199,10 +200,19 @@ export function makePerson(opts: { shirt: number; pants?: number; skin?: number;
     wrap.position.set(-0.01, 1.78, 0);
     g.add(wrap);
   }
+  if (opts.helmet) {
+    const h = new THREE.Mesh(new THREE.SphereGeometry(0.17, 20, 16), mat(opts.helmet, { roughness: 0.25, metalness: 0.3 }));
+    h.position.set(0, 1.76, 0);
+    g.add(h);
+    const v = new THREE.Mesh(new THREE.SphereGeometry(0.13, 16, 12, -Math.PI / 2.4, Math.PI / 1.2, Math.PI / 3, Math.PI / 3), mat(0x1d2633, { roughness: 0.1, metalness: 0.6 }));
+    v.position.set(0.06, 1.76, 0);
+    g.add(v);
+  }
   if (opts.parcel) {
     const p = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.24, 0.3), mat(0xc9975c, { roughness: 0.9 }));
     p.position.set(0.28, 1.05, 0);
     g.add(p);
+    g.userData.parcel = p;
   }
   g.userData.armR = armR;
   g.traverse((o) => {
@@ -251,5 +261,73 @@ export function makePin() {
   ring.position.y = 0.05;
   g.add(ring);
   g.userData.ring = ring;
+  return g;
+}
+
+/**
+ * Circulation d'Abidjan : voiture particulière, taxi rouge (compteur) ou gbaka (minibus vert et jaune).
+ * Unités en mètres, face vers +X.
+ */
+export function makeVehicle(kind: 'car' | 'taxi' | 'gbaka', color = 0xdedfe3) {
+  const g = new THREE.Group();
+  const L = kind === 'gbaka' ? 5.4 : 4.3;
+  const W = kind === 'gbaka' ? 2.0 : 1.75;
+  const body = kind === 'taxi' ? 0xe8432f : kind === 'gbaka' ? 0x2e8b57 : color;
+  g.add(groundShadow(L * 0.6, W * 0.75, 0.28));
+  const paint = mat(body, { roughness: 0.35, metalness: 0.35 });
+  const glass = mat(0x1f2a36, { roughness: 0.1, metalness: 0.7 });
+  const black = mat(0x18181c, { roughness: 0.8 });
+  const lower = new THREE.Mesh(new THREE.BoxGeometry(L, kind === 'gbaka' ? 0.9 : 0.62, W), paint);
+  lower.position.y = kind === 'gbaka' ? 0.8 : 0.62;
+  g.add(lower);
+  if (kind === 'gbaka') {
+    const cabin = new THREE.Mesh(new THREE.BoxGeometry(L * 0.92, 1.0, W * 0.98), paint);
+    cabin.position.set(-0.1, 1.72, 0);
+    g.add(cabin);
+    const stripe = new THREE.Mesh(new THREE.BoxGeometry(L * 1.002, 0.18, W * 1.01), mat(0xf2c230));
+    stripe.position.y = 1.22;
+    g.add(stripe);
+    const win = new THREE.Mesh(new THREE.BoxGeometry(L * 0.86, 0.5, W * 1.002), glass);
+    win.position.set(-0.1, 1.82, 0);
+    g.add(win);
+    const rack = new THREE.Mesh(new THREE.BoxGeometry(L * 0.7, 0.12, W * 0.9), black);
+    rack.position.set(-0.3, 2.32, 0);
+    g.add(rack);
+    for (let i = 0; i < 3; i++) {
+      const bag = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.35, 0.6), mat([0x3b6fb6, 0xc9975c, 0x8e44ad][i], { roughness: 0.9 }));
+      bag.position.set(-1.2 + i * 0.8, 2.55, (i - 1) * 0.3);
+      g.add(bag);
+    }
+  } else {
+    const cabin = new THREE.Mesh(new THREE.BoxGeometry(L * 0.5, 0.5, W * 0.9), paint);
+    cabin.position.set(-0.15, 1.17, 0);
+    g.add(cabin);
+    const win = new THREE.Mesh(new THREE.BoxGeometry(L * 0.52, 0.36, W * 0.92), glass);
+    win.position.set(-0.15, 1.16, 0);
+    g.add(win);
+    if (kind === 'taxi') {
+      const sign = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.18, 0.25), mat(0xfff6c8, { emissive: 0xffe08a, emissiveIntensity: 0.5 }));
+      sign.position.set(-0.15, 1.52, 0);
+      g.add(sign);
+    }
+  }
+  const wheel = new THREE.CylinderGeometry(0.33, 0.33, 0.24, 16);
+  for (const x of [L * 0.32, -L * 0.32]) {
+    for (const z of [W / 2, -W / 2]) {
+      const w = new THREE.Mesh(wheel, black);
+      w.rotation.x = Math.PI / 2;
+      w.position.set(x, 0.33, z);
+      g.add(w);
+    }
+  }
+  for (const z of [W * 0.32, -W * 0.32]) {
+    const head = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.14, 0.32), mat(0xfff6d6, { emissive: 0xfff2b0, emissiveIntensity: 0.8 }));
+    head.position.set(L / 2 + 0.01, kind === 'gbaka' ? 0.95 : 0.72, z);
+    g.add(head);
+    const tail = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.12, 0.3), mat(0xff3b30, { emissive: 0xff2a20, emissiveIntensity: 0.9 }));
+    tail.position.set(-L / 2 - 0.01, kind === 'gbaka' ? 0.95 : 0.72, z);
+    g.add(tail);
+  }
+  g.userData.length = L;
   return g;
 }

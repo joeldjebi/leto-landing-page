@@ -5,7 +5,7 @@ import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './style.css';
 import data from './data/routes.json';
-import { makePerson, makePin, makeRider } from './models';
+import { INK, makePerson, makePin, makeRider, makeVehicle, VIOLET as VIOLET_HEX } from './models';
 import { clamp01, ease, lerp, lerpAngle, Route } from './route';
 import { Scene3D, type LngLat, type Placed } from './scene3d';
 
@@ -100,8 +100,30 @@ async function start() {
     map.addLayer(s3d);
     const rider = s3d.add(makeRider(), main.at(0), { heading: main.heading(0), screenPx: 58, size: 2.1 });
     const seller = s3d.add(makePerson({ shirt: 0xe0763a, headwrap: 0x6d28d9, parcel: true }), offset(pickup, -26, 16), { heading: main.heading(0) + Math.PI / 2, screenPx: 52, size: 1.85 });
-    const buyer = s3d.add(makePerson({ shirt: 0x2f8f6b, skin: 0x5a3a24 }), offset(client, 24, -14), { heading: main.heading(1) + Math.PI, screenPx: 52, size: 1.85 });
+    const buyer = s3d.add(makePerson({ shirt: 0x2f8f6b, skin: 0x5a3a24, parcel: true }), offset(client, 24, -14), { heading: main.heading(1) + Math.PI, screenPx: 52, size: 1.85 });
     const pin = s3d.add(makePin(), client, { screenPx: 54, size: 4.5, visible: false });
+    // Remise du colis : la moto garée, le livreur à pied avec le colis
+    const parked = s3d.add(makeRider({ rider: false }), main.at(1), { heading: main.heading(0.999), screenPx: 58, size: 2.1, visible: false });
+    const courier = s3d.add(makePerson({ shirt: INK, pants: 0x2f3a55, helmet: VIOLET_HEX, parcel: true }), main.at(1), { screenPx: 52, size: 1.85, visible: false });
+    (buyer.obj.userData.parcel as { visible: boolean }).visible = false;
+    const courierFrom = offset(main.at(1), 9, -5);
+    const courierTo = offset(client, 14, -8);
+
+    // Circulation : voitures, taxis rouges et gbakas sur les vraies routes (8 à 11 m/s)
+    const trafficRoutes = [...fleet, tour, main];
+    const kinds: ['car' | 'taxi' | 'gbaka', number][] = [['taxi', 0], ['car', 0xdedfe3], ['gbaka', 0], ['car', 0x2b3a55], ['taxi', 0], ['car', 0x8c1c24], ['car', 0xf2f2f2], ['gbaka', 0], ['taxi', 0], ['car', 0x3d3d44], ['car', 0xc9b27c], ['taxi', 0], ['car', 0x5b6b7f], ['gbaka', 0]];
+    const traffic = kinds.map(([kind, color], i) => {
+      const route = trafficRoutes[i % trafficRoutes.length];
+      const len = kind === 'gbaka' ? 5.4 : 4.3;
+      return {
+        route,
+        phase: (i * 0.137) % 1,
+        dir: i % 2 ? 1 : -1,
+        speed: 8 + (i % 4),
+        placed: s3d.add(makeVehicle(kind, color || undefined), route.at(0), { screenPx: len * 15, size: len, visible: false }),
+      };
+    });
+
     const riders: Placed[] = fleet.map((r, i) => s3d.add(makeRider({ lights: true, jacket: [0x121214, 0x1e3a5f, 0x3b2a1a][i % 3] }), r.at(0), { screenPx: 56, size: 2.1, visible: false }));
 
     // Repères HTML (bulles)
@@ -121,6 +143,13 @@ async function start() {
     // ------------------------------------------------ Scènes pilotées par le défilement
     const sections = [...document.querySelectorAll<HTMLElement>('[data-scene]')];
     const live = document.getElementById('live')!;
+    const phone = document.getElementById('phone')!;
+    const phoneEta = document.getElementById('phone-eta')!;
+    const phoneEtaLabel = document.getElementById('phone-eta-label')!;
+    const phoneStatus = document.getElementById('phone-status')!;
+    const phoneBar = document.getElementById('phone-bar')!;
+    const phoneCode = document.getElementById('phone-code')!;
+    const phoneSteps = [...document.querySelectorAll<HTMLElement>('#phone .steps li')];
     const liveEta = document.getElementById('live-eta')!;
     const liveStep = document.getElementById('live-step')!;
     const liveBar = document.getElementById('live-bar')!;
@@ -186,8 +215,8 @@ async function start() {
           break;
         case 'delivered':
           ride = 1;
-          target = { c: offset(client, 1, -1), zoom: isMobile() ? 17.6 : 18.2, pitch: 68, bearing: lerp(-20, 40, ease(p)) };
-          codeOn = p > 0.25;
+          target = { c: offset(client, 6, -4), zoom: isMobile() ? 17.8 : 18.4, pitch: 68, bearing: lerp(-20, 40, ease(p)) };
+          codeOn = p > 0.42;
           break;
         case 'tour': {
           ride = 1;
@@ -223,7 +252,7 @@ async function start() {
       const centered = name === 'pros' || name === 'faq' || name === 'final';
       const padding = isMobile()
         ? { top: 60, bottom: Math.round(window.innerHeight * 0.4), left: 0, right: 0 }
-        : { top: 70, bottom: 0, left: centered ? 0 : Math.min(600, Math.round(window.innerWidth * 0.4)), right: 0 };
+        : { top: 70, bottom: 0, left: centered ? 0 : Math.min(600, Math.round(window.innerWidth * 0.4)), right: (name === 'track' || name === 'delivered') && window.innerHeight > 640 ? 330 : 0 };
       map.jumpTo({ center: [cam.lng, cam.lat], zoom: cam.zoom, pitch: cam.pitch, bearing: cam.bearing, padding });
 
       // Livreur et tracés
@@ -250,17 +279,57 @@ async function start() {
       tog(codeTag, codeOn);
       // Chaque personnage n'apparaît que dans ses scènes
       const story = name === 'hero' || name === 'order' || name === 'track' || name === 'delivered';
-      rider.visible = story;
+      // Remise : le livreur descend (12 %), marche jusqu'à Moussa, lui donne le colis (42 %)
+      const handing = name === 'delivered' && p >= 0.12;
+      rider.visible = story && !handing;
+      parked.visible = handing;
+      courier.visible = handing;
+      if (handing) {
+        const w = ease(clamp01((p - 0.12) / 0.26));
+        courier.lngLat = [lerp(courierFrom[0], courierTo[0], w), lerp(courierFrom[1], courierTo[1], w)];
+        const dx = (courierTo[0] - courierFrom[0]) * Math.cos((client[1] * Math.PI) / 180);
+        const dz = -(courierTo[1] - courierFrom[1]);
+        courier.heading = Math.atan2(dz, dx);
+        courier.lift = w < 1 ? Math.abs(Math.sin(now * 9)) * 0.04 : 0; // pas de marche
+        (courier.obj.userData.parcel as { visible: boolean }).visible = !codeOn;
+        (courier.obj.userData.armR as { rotation: { z: number } }).rotation.z = w > 0.9 && !codeOn ? 1.1 : 0;
+      }
+      (buyer.obj.userData.parcel as { visible: boolean }).visible = name === 'delivered' && codeOn;
       seller.visible = name === 'hero' || name === 'order';
       buyer.visible = (name === 'order' && pinOn) || name === 'track' || name === 'delivered';
 
       // Suivi en direct (carte flottante)
+      const phoneOn = name === 'track' || name === 'delivered';
+      phone.classList.toggle('on', phoneOn);
+      if (phoneOn) {
+        const done = name === 'delivered' && codeOn;
+        const left = Math.max(1, Math.ceil(RIDE_MIN * (1 - ride)));
+        phoneEta.textContent = done ? 'Livré' : ride > 0.985 ? 'Arrivé' : `${left} min`;
+        phoneEtaLabel.textContent = done ? 'COLIS REMIS' : 'ARRIVÉE';
+        phoneStatus.textContent = done ? 'Colis remis à Moussa' : ride > 0.985 ? 'Votre livreur est arrivé' : 'Votre colis est en route';
+        phoneBar.style.width = `${Math.round((done ? 1 : ride) * 100)}%`;
+        phoneSteps.forEach((el, i) => el.classList.toggle('on', i < (done ? 4 : ride > 0.985 ? 3 : 3)));
+        phoneSteps[3].classList.toggle('on', done);
+        phoneCode.classList.toggle('on', done);
+      }
       live.classList.toggle('on', liveOn);
       if (liveOn) {
         const left = Math.max(1, Math.ceil(RIDE_MIN * (1 - ride)));
         liveEta.textContent = ride > 0.985 ? 'Arrivé' : `${left} min`;
         liveStep.textContent = ride < 0.12 ? 'Départ du Plateau' : ride < 0.55 ? 'Sur le pont, vers Marcory' : ride < 0.985 ? 'Bientôt chez Moussa' : 'Devant chez Moussa';
         liveBar.style.width = `${Math.round(ride * 100)}%`;
+      }
+
+      // Circulation (de près seulement : de loin, elle encombrerait la vue)
+      const showTraffic = cam.zoom > 15.4 && night < 0.5 && name !== 'delivered';
+      for (const v of traffic) {
+        v.placed.visible = showTraffic;
+        if (!showTraffic) continue;
+        const dur = v.route.length / v.speed;
+        let t = (now / dur + v.phase) % 1;
+        if (v.dir < 0) t = 1 - t;
+        v.placed.lngLat = v.route.at(t);
+        v.placed.heading = v.route.heading(t) + (v.dir < 0 ? Math.PI : 0);
       }
 
       // Nuit : la ville s'allume, la flotte LETO circule

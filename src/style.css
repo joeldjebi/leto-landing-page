@@ -141,6 +141,41 @@ main { position: relative; z-index: 2; }
 .bar { height: 6px; border-radius: 3px; background: #33303d; overflow: hidden; }
 .bar span { display: block; height: 100%; width: 0; background: #8b5cf6; border-radius: 3px; transition: width .2s linear; }
 
+/* ---------- Téléphone : l'app LETO ---------- */
+.phone { position: fixed; z-index: 25; right: max(28px, 4vw); top: 50%; width: 280px; height: 568px; margin-top: -270px; border-radius: 44px; background: #0d0d10; padding: 12px; box-shadow: 0 40px 90px -30px rgba(18,18,20,.65), inset 0 0 0 2px #2a2933; opacity: 0; transform: translateY(24px) scale(.97); transition: opacity .45s ease, transform .45s ease; pointer-events: none; }
+.phone.on { opacity: 1; transform: none; }
+.phone::before { content: ''; position: absolute; top: 18px; left: 50%; width: 84px; height: 24px; margin-left: -42px; border-radius: 14px; background: #0d0d10; z-index: 2; }
+.phone-screen { height: 100%; border-radius: 34px; background: #f6f4fa; overflow: hidden; display: flex; flex-direction: column; gap: 12px; padding: 50px 14px 14px; font-size: 13px; }
+.app-top { display: flex; align-items: baseline; justify-content: space-between; }
+.app-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 1px; color: var(--violet); }
+.app-top small { color: var(--muted); }
+.app-hero { background: linear-gradient(135deg, #7c3aed, var(--violet-deep)); color: #fff; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.app-hero small { color: #e9ddff; }
+.app-eta { display: flex; align-items: baseline; justify-content: space-between; }
+.app-eta b { font-family: 'Barlow Condensed', sans-serif; font-size: 40px; line-height: 1; }
+.app-eta small { font-size: 10px; letter-spacing: .6px; }
+.app-hero .bar { background: rgba(255,255,255,.25); }
+.app-hero .bar span { background: #fff; }
+.app-driver { display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 14px; padding: 10px; }
+.app-driver > div { flex: 1; display: flex; flex-direction: column; }
+.app-driver small { color: var(--muted); font-size: 12px; }
+.app-driver .avatar { background: #efe8fd; color: var(--violet); width: 34px; height: 34px; }
+.call { width: 32px; height: 32px; border-radius: 50%; background: #e8f7ee; color: #16a34a; display: grid; place-items: center; }
+.steps { margin: 0; padding: 0 0 0 4px; list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.steps li { position: relative; padding-left: 22px; color: var(--muted); }
+.steps li::before { content: ''; position: absolute; left: 0; top: 3px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #d9d3e8; box-sizing: border-box; }
+.steps li.on { color: var(--ink); font-weight: 600; }
+.steps li.on::before { background: var(--violet); border-color: var(--violet); }
+.app-code { display: none; background: #16a34a; color: #fff; border-radius: 14px; padding: 10px 12px; flex-direction: column; gap: 2px; }
+.app-code.on { display: flex; }
+.app-code b { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; letter-spacing: 4px; }
+.app-code small, .app-code span { color: #dcfce7; font-size: 12px; }
+.app-dest { margin-top: auto; background: #fff; border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; }
+.app-dest small { color: var(--muted); font-size: 11px; }
+@media (min-width: 761px) { .live { display: none; } }
+@media (max-width: 760px) { .phone { display: none; } }
+@media (max-height: 640px) { .phone { display: none; } .live { display: flex; } }
+
 /* ---------- Bulles sur la carte ---------- */
 .bubble { background: #fff; border-radius: 14px; padding: 8px 12px; box-shadow: 0 12px 30px -10px rgba(18,18,20,.4); display: flex; flex-direction: column; font-size: 13px; color: var(--muted); white-space: nowrap; opacity: 0; transform: translateY(8px) scale(.96); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }
 .bubble b { color: var(--ink); font-size: 14px; }

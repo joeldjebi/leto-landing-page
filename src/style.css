@@ -78,7 +78,7 @@ main { position: relative; z-index: 2; }
 .chips { display: flex; gap: 8px; flex-wrap: wrap; }
 .chips span { padding: 9px 12px; border-radius: 12px; background: #f3eefe; color: #5b21b6; font-weight: 600; font-size: 14px; }
 .chips .strong { background: var(--violet); color: #fff; }
-.scroll-hint { position: absolute; left: 50%; bottom: 38vh; transform: translateX(-50%); font-size: 13px; font-weight: 600; color: var(--ink); background: rgba(255,255,255,.85); padding: 8px 14px; border-radius: 999px; animation: bob 2.2s ease-in-out infinite; }
+.scroll-hint { position: absolute; left: 50%; bottom: 38vh; transform: translateX(-50%); font-size: 13px; font-weight: 600; color: var(--ink); background: rgba(255,255,255,.85); padding: 8px 14px; border-radius: 999px; animation: bob 2.2s ease-in-out infinite; transition: opacity .3s ease; }
 @keyframes bob { 50% { transform: translate(-50%, 6px); } }
 
 /* Tarifs */

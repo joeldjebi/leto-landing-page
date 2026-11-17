@@ -143,6 +143,7 @@ async function start() {
     // ------------------------------------------------ Scènes pilotées par le défilement
     const sections = [...document.querySelectorAll<HTMLElement>('[data-scene]')];
     const live = document.getElementById('live')!;
+    const hint = document.querySelector<HTMLElement>('.scroll-hint');
     const phone = document.getElementById('phone')!;
     const phoneEta = document.getElementById('phone-eta')!;
     const phoneEtaLabel = document.getElementById('phone-eta-label')!;
@@ -192,6 +193,7 @@ async function start() {
         card.style.transform = `translateY(${((1 - o) * (lp < 0.5 ? 24 : -24)).toFixed(1)}px)`;
         card.style.pointerEvents = o > 0.5 ? 'auto' : 'none';
       }
+      hint?.style.setProperty('opacity', window.scrollY > 30 ? '0' : '1');
       const orbit = reduced ? 0 : Math.sin(now / 9) * 8;
       let target: Cam;
       let ride = 0, showMainFull = 1, tourDraw = -1, wantNight = 0, pinOn = false, codeOn = false, liveOn = false;

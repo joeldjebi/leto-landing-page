@@ -285,3 +285,10 @@ body.no-map .scroll-hint { display: none; }
 .footer .contact a { color: var(--ink); }
 @media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
 button.btn { font: inherit; font-weight: 600; border: 0; cursor: pointer; }
+
+/* Espace pro (connexion des entreprises) */
+.links .pro-link { font-weight: 600; color: var(--violet, #6d28d9); }
+.pro-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.pro-actions .btn { align-self: auto; }
+.pro-login { color: inherit; font-weight: 600; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; opacity: .9; }
+.pro-login:hover { opacity: 1; }

@@ -14,6 +14,6 @@ echo "→ Construction (SITE_URL=$SITE_URL)"
 SITE_URL="$SITE_URL" npm run build
 echo "→ Publication dans $WEB_ROOT"
 mkdir -p "$WEB_ROOT"
-rsync -a --delete --exclude '.well-known' dist/ "$WEB_ROOT/"
+rsync -a --delete --exclude '.well-known' --exclude 'pro' dist/ "$WEB_ROOT/"
 [ -n "${CPUSER:-}" ] && chown -R "$CPUSER:$CPUSER" "$WEB_ROOT"
 echo "✓ Landing page à jour : $SITE_URL"

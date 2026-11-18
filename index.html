@@ -5,16 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>LETO · Livraison à Abidjan, suivie en direct</title>
   <meta name="description" content="Faites livrer vos colis partout à Abidjan, à moto, en voiture ou en cargo. Un ou dix destinataires, suivi en direct, paiement en espèces. 2 200 F maximum à moto dans le Grand Abidjan.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="canonical" href="%SITE_URL%/">
+  <!-- Aperçu des liens partagés (WhatsApp, Facebook, X, LinkedIn) -->
+  <meta property="og:site_name" content="LETO">
+  <meta property="og:locale" content="fr_CI">
   <meta property="og:title" content="LETO · Livraison à Abidjan, suivie en direct">
   <meta property="og:description" content="Un ou dix destinataires, suivi en direct, paiement en espèces. 2 200 F maximum à moto dans le Grand Abidjan.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="%SITE_URL%/">
+  <meta property="og:image" content="%SITE_URL%/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Un livreur LETO à moto au Plateau, sur la carte 3D d’Abidjan">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="%SITE_URL%/og-image.jpg">
   <meta name="theme-color" content="#121214">
+  <!-- Fiche entreprise pour Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "LETO",
+    "url": "%SITE_URL%/",
+    "logo": "%SITE_URL%/favicon.svg",
+    "description": "Livraison de colis à Abidjan à moto, en voiture ou en cargo, avec suivi en direct et paiement en espèces.",
+    "areaServed": { "@type": "City", "name": "Abidjan" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Abidjan", "addressCountry": "CI" }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Carte 3D réelle d'Abidjan, en fond de toute la page -->
+  <!-- Image d'attente (et de secours si la 3D n'est pas disponible) -->
+  <div id="poster" aria-hidden="true"></div>
   <div id="map" aria-hidden="true"></div>
   <div class="veil" aria-hidden="true"></div>
 

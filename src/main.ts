@@ -24,6 +24,27 @@ const RIDE_MIN = data.main.min as number;
 
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/**
+ * Mode allégé pour les téléphones modestes ou les connexions lentes :
+ * pas de circulation ni de flotte de nuit, résolution limitée, pas d'antialiasing.
+ */
+const nav = navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string }; deviceMemory?: number };
+const lite =
+  !!nav.connection?.saveData ||
+  /(^|-)2g|3g/.test(nav.connection?.effectiveType ?? '') ||
+  (nav.deviceMemory ?? 8) <= 2 ||
+  (window.innerWidth < 760 && (navigator.hardwareConcurrency ?? 8) <= 4);
+if (lite) document.body.classList.add('lite');
+
+/** La 3D (WebGL 2) est-elle disponible sur cet appareil ? */
+function hasWebGL() {
+  try {
+    return !!document.createElement('canvas').getContext('webgl2');
+  } catch {
+    return false;
+  }
+}
+
 // ---------------------------------------------------------------- Carte
 
 /** Style OpenFreeMap allégé : moins de pictogrammes, immeubles 3D plus réalistes */
@@ -49,6 +70,15 @@ async function loadStyle(): Promise<StyleSpecification> {
 const isMobile = () => window.innerWidth < 760;
 
 async function start() {
+  // Sans 3D : la page reste complète, sur l'image de la ville
+  if (!hasWebGL()) {
+    document.body.classList.add('no-map');
+    return;
+  }
+  // Carte trop lente à venir (réseau) : on reste sur l'image d'attente, la page fonctionne
+  const giveUp = window.setTimeout(() => {
+    if (!document.body.classList.contains('map-ready')) document.body.classList.add('no-map');
+  }, 20000);
   let style: StyleSpecification;
   try {
     style = await loadStyle();
@@ -67,7 +97,8 @@ async function start() {
     interactive: false,
     attributionControl: { compact: true },
     fadeDuration: 0,
-    canvasContextAttributes: { antialias: true },
+    canvasContextAttributes: { antialias: !lite },
+    pixelRatio: Math.min(window.devicePixelRatio || 1, lite ? 1.25 : 2),
   });
   (window as unknown as { __map: maplibregl.Map }).__map = map;
 
@@ -323,7 +354,7 @@ async function start() {
       }
 
       // Circulation (de près seulement : de loin, elle encombrerait la vue)
-      const showTraffic = cam.zoom > 15.4 && night < 0.5 && name !== 'delivered';
+      const showTraffic = !lite && cam.zoom > 15.4 && night < 0.5 && name !== 'delivered';
       for (const v of traffic) {
         v.placed.visible = showTraffic;
         if (!showTraffic) continue;
@@ -344,7 +375,7 @@ async function start() {
       s3d.ambient.intensity = lerp(1.6, 0.55, night);
       s3d.sun.intensity = lerp(2.4, 0.35, night);
       riders.forEach((r, i) => {
-        r.visible = night > 0.3;
+        r.visible = night > 0.3 && (!lite || i < 2);
         const t = ((now / (40 + i * 7) + i * 0.17) % 1);
         r.lngLat = fleet[i].at(t);
         r.heading = fleet[i].heading(t);
@@ -353,6 +384,8 @@ async function start() {
       requestAnimationFrame(frame);
     };
     requestAnimationFrame(frame);
+    window.clearTimeout(giveUp);
+    document.body.classList.remove('no-map');
     document.body.classList.add('map-ready');
   });
 

@@ -31,7 +31,12 @@ p { margin: 0; font-size: 17px; line-height: 1.6; color: var(--text); }
     linear-gradient(90deg, rgba(243, 238, 228, calc(0.55 - 0.45 * var(--night))) 0%, rgba(243, 238, 228, 0) 46%),
     linear-gradient(0deg, rgba(76, 29, 149, calc(0.16 * var(--night))), rgba(18, 18, 20, 0));
 }
-body.no-map #map { background: linear-gradient(160deg, #efe7f9, #f3eee4); }
+/* Image d'attente : la ville, le temps que la carte 3D se charge ; reste affichée si la 3D est indisponible */
+#poster { position: fixed; inset: 0; z-index: 0; background: #f3eee4 url('/poster.jpg') center / cover no-repeat; transition: opacity .8s ease; }
+@media (max-width: 760px) { #poster { background-image: url('/poster-m.jpg'); } }
+body.map-ready #poster { opacity: 0; pointer-events: none; }
+body.no-map #map, body.no-map .live, body.no-map .phone { display: none; }
+body.no-map #poster::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(243,238,228,.65), rgba(243,238,228,.1)); }
 .maplibregl-ctrl-attrib { font-size: 11px; }
 
 /* ---------- Navigation ---------- */
@@ -203,3 +208,4 @@ main { position: relative; z-index: 2; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+body.no-map .scroll-hint { display: none; }

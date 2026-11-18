@@ -492,5 +492,25 @@ function distKm(a: [number, number], b: [number, number]) {
   return 2 * 6371 * Math.asin(Math.sqrt(h));
 }
 
+/** Menu mobile : ouvert par le bouton, fermé par un lien, la touche Échap ou le passage en grand écran */
+function setupMenu() {
+  const btn = document.querySelector<HTMLButtonElement>('.burger');
+  const menu = document.getElementById('mobile-menu');
+  if (!btn || !menu) return;
+  const set = (open: boolean) => {
+    menu.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    document.body.classList.toggle('menu-open', open);
+  };
+  btn.addEventListener('click', () => set(menu.hidden !== false));
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !menu.hidden) set(false);
+  });
+  window.matchMedia('(min-width: 761px)').addEventListener('change', (e) => e.matches && set(false));
+}
+
 setupSimulator();
+setupMenu();
 void start();

@@ -7,6 +7,7 @@ import './style.css';
 import data from './data/routes.json';
 import { INK, makePerson, makePin, makeRider, makeVehicle, VIOLET as VIOLET_HEX } from './models';
 import { clamp01, ease, lerp, lerpAngle, Route } from './route';
+import { applyContent, setupApply } from './cms';
 import { Scene3D, type LngLat, type Placed } from './scene3d';
 
 maplibregl.setWorkerUrl(workerUrl);
@@ -504,7 +505,7 @@ function setupMenu() {
     document.body.classList.toggle('menu-open', open);
   };
   btn.addEventListener('click', () => set(menu.hidden !== false));
-  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
+  menu.querySelectorAll('a, button').forEach((a) => a.addEventListener('click', () => set(false)));
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !menu.hidden) set(false);
   });
@@ -513,4 +514,6 @@ function setupMenu() {
 
 setupSimulator();
 setupMenu();
+setupApply();
+void applyContent();
 void start();

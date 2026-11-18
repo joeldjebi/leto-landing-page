@@ -57,7 +57,7 @@
       <a href="#pros">Entreprises et livreurs</a>
       <a href="#faq">Questions</a>
     </nav>
-    <a class="btn dark nav-cta" href="#telecharger">Télécharger l’app</a>
+    <a class="btn dark nav-cta" href="#telecharger" data-apk>Télécharger l’app</a>
     <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
@@ -70,8 +70,8 @@
       <a href="#tarifs">Tarifs</a>
       <a href="#pros">Entreprises et livreurs</a>
       <a href="#faq">Questions</a>
-      <a class="btn violet" href="#telecharger">Télécharger l’app</a>
-      <a class="btn light" href="#pros">Devenir partenaire</a>
+      <a class="btn violet" href="#telecharger" data-apk>Télécharger l’app Android</a>
+      <button class="btn light" type="button" data-apply>Devenir partenaire</button>
     </nav>
   </div>
 
@@ -113,12 +113,12 @@
   <main>
     <section id="top" class="scene hero" data-scene="hero">
       <div class="card glass">
-        <span class="pill"><i></i>Livraison à Abidjan, en temps réel</span>
-        <h1>Vos colis livrés,<br><em>partout à Abidjan.</em></h1>
-        <p>Un ou dix destinataires, à moto, en voiture ou en cargo. Suivez votre livreur en direct et payez en espèces à la remise du colis.</p>
+        <span class="pill"><i></i><span data-cms="hero.badge">Livraison à Abidjan, en temps réel</span></span>
+        <h1><span data-cms="hero.title1">Vos colis livrés,</span><br><em data-cms="hero.title2">partout à Abidjan.</em></h1>
+        <p data-cms="hero.subtitle">Un ou dix destinataires, à moto, en voiture ou en cargo. Suivez votre livreur en direct et payez en espèces à la remise du colis.</p>
         <div class="actions">
-          <a class="btn violet" href="#telecharger">Commander une livraison</a>
-          <a class="btn light" href="#pros">Devenir partenaire</a>
+          <a class="btn violet" href="#telecharger" data-apk><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12 M7 10l5 5 5-5 M5 20h14"/></svg><span data-cms="hero.ctaPrimary">Télécharger l’app Android</span></a>
+          <a class="btn light" href="#pros" data-cms="hero.ctaSecondary">Devenir partenaire</a>
         </div>
         <ul class="checks">
           <li>2 200 F maximum à moto</li><li>Livreurs vérifiés</li><li>Suivi en direct</li>
@@ -130,32 +130,32 @@
     <section id="comment" class="scene" data-scene="order" style="--h: 150vh">
       <div class="card glass">
         <span class="step">01 · Vous commandez</span>
-        <h2>Posez l’adresse. Le prix s’affiche.</h2>
-        <p>Aïcha, au Plateau, envoie un colis à Moussa, à Marcory. Elle place l’adresse sur la carte : LETO calcule le trajet par les vraies routes et affiche le prix avant de valider.</p>
+        <h2 data-cms="steps.0.title">Posez l’adresse. Le prix s’affiche.</h2>
+        <p data-cms="steps.0.text">Aïcha, au Plateau, envoie un colis à Moussa, à Marcory. Elle place l’adresse sur la carte : LETO calcule le trajet par les vraies routes et affiche le prix avant de valider.</p>
       </div>
     </section>
 
     <section class="scene" data-scene="track" style="--h: 260vh">
       <div class="card glass">
         <span class="step">02 · Vous suivez en direct</span>
-        <h2>Le livreur avance. Vous le voyez.</h2>
-        <p>Koffi traverse la lagune par le pont. Aïcha et Moussa suivent la moto en temps réel, même écran verrouillé, avec l’heure d’arrivée qui se met à jour.</p>
+        <h2 data-cms="steps.1.title">Le livreur avance. Vous le voyez.</h2>
+        <p data-cms="steps.1.text">Koffi traverse la lagune par le pont. Aïcha et Moussa suivent la moto en temps réel, même écran verrouillé, avec l’heure d’arrivée qui se met à jour.</p>
       </div>
     </section>
 
     <section class="scene" data-scene="delivered" style="--h: 150vh">
       <div class="card glass">
         <span class="step">03 · C’est livré, prouvé</span>
-        <h2>Un code. Le bon destinataire.</h2>
-        <p>Moussa donne son code à 4 chiffres : le colis ne peut être remis qu’à lui. Absent ? Le livreur prouve son passage par GPS et photo.</p>
+        <h2 data-cms="steps.2.title">Un code. Le bon destinataire.</h2>
+        <p data-cms="steps.2.text">Moussa donne son code à 4 chiffres : le colis ne peut être remis qu’à lui. Absent ? Le livreur prouve son passage par GPS et photo.</p>
       </div>
     </section>
 
     <section class="scene" data-scene="tour" style="--h: 200vh">
       <div class="card glass">
         <span class="step">Tournées</span>
-        <h2>Dix adresses. Une course. Le bon ordre.</h2>
-        <p>LETO enchaîne les arrêts au plus court, ici 6 clients entre Cocody et la Riviera. Et plus il y a d’arrêts, moins chaque livraison coûte.</p>
+        <h2 data-cms="tour.title">Dix adresses. Une course. Le bon ordre.</h2>
+        <p data-cms="tour.text">LETO enchaîne les arrêts au plus court, ici 6 clients entre Cocody et la Riviera. Et plus il y a d’arrêts, moins chaque livraison coûte.</p>
         <div class="chips"><span>2 adresses · −5 %</span><span>4 adresses · −15 %</span><span class="strong">6 et + · −25 %</span></div>
       </div>
     </section>
@@ -163,8 +163,8 @@
     <section id="tarifs" class="scene" data-scene="price" style="--h: 170vh">
       <div class="card dark">
         <span class="step light">Tarifs clairs</span>
-        <h2 class="big">2 200 F<br><em>maximum.</em></h2>
-        <p>À moto, partout dans le Grand Abidjan, en livraison Standard. Le prix dépend de la distance : souvent bien moins.</p>
+        <h2 class="big"><span data-cms="price.title1">2 200 F</span><br><em data-cms="price.title2">maximum.</em></h2>
+        <p data-cms="price.text">À moto, partout dans le Grand Abidjan, en livraison Standard. Le prix dépend de la distance : souvent bien moins.</p>
         <div class="sim">
           <div class="sim-row">
             <label>Départ<select id="sim-from"></select></label>
@@ -183,12 +183,12 @@
     <section class="scene" data-scene="trust" style="--h: 170vh">
       <div class="card glass night">
         <span class="step">Confiance</span>
-        <h2>Jour et nuit, des livreurs vérifiés.</h2>
+        <h2 data-cms="trust.title">Jour et nuit, des livreurs vérifiés.</h2>
         <ul class="trust">
-          <li><b>Livreurs vérifiés</b>Pièce d’identité, permis, carte grise et selfie contrôlés avant la première course.</li>
-          <li><b>Code de livraison</b>Chaque destinataire a son code : le colis n’est remis qu’à la bonne personne.</li>
-          <li><b>Preuve de passage</b>Absent ? Position GPS, temps d’attente et photo, consultables par l’expéditeur.</li>
-          <li><b>Paiement en espèces</b>Pas de carte. Pour les boutiques, le livreur encaisse la marchandise à la livraison.</li>
+          <li><b data-cms="trust.items.0.title">Livreurs vérifiés</b><span data-cms="trust.items.0.text">Pièce d’identité, permis, carte grise et selfie contrôlés avant la première course.</span></li>
+          <li><b data-cms="trust.items.1.title">Code de livraison</b><span data-cms="trust.items.1.text">Chaque destinataire a son code : le colis n’est remis qu’à la bonne personne.</span></li>
+          <li><b data-cms="trust.items.2.title">Preuve de passage</b><span data-cms="trust.items.2.text">Absent ? Position GPS, temps d’attente et photo, consultables par l’expéditeur.</span></li>
+          <li><b data-cms="trust.items.3.title">Paiement en espèces</b><span data-cms="trust.items.3.text">Pas de carte. Pour les boutiques, le livreur encaisse la marchandise à la livraison.</span></li>
         </ul>
       </div>
     </section>
@@ -197,36 +197,62 @@
       <div class="pros">
         <article class="card glass night">
           <span class="step">Entreprises de livraison</span>
-          <h2>Votre flotte, vos prix, nos clients.</h2>
-          <p>Carte en direct de vos livreurs, affectation des courses, encaissements, carnet des livreurs et vos propres tarifs, dans un back-office complet.</p>
-          <a class="btn dark" href="#contact">Devenir entreprise partenaire</a>
+          <h2 data-cms="pros.companyTitle">Votre flotte, vos prix, nos clients.</h2>
+          <p data-cms="pros.companyText">Carte en direct de vos livreurs, affectation des courses, encaissements, carnet des livreurs et vos propres tarifs, dans un back-office complet.</p>
+          <button class="btn dark" type="button" data-apply>Devenir entreprise partenaire</button>
         </article>
         <article class="card glass night">
           <span class="step">Livreurs indépendants</span>
-          <h2>Votre engin. Vos horaires.</h2>
-          <p>Inscrivez-vous dans l’app avec votre pièce et les papiers de votre engin. Une fois validé par LETO, recevez les courses autour de vous, avec un son, même écran verrouillé.</p>
-          <a class="btn violet" href="#telecharger">S’inscrire comme livreur</a>
+          <h2 data-cms="pros.driverTitle">Votre engin. Vos horaires.</h2>
+          <p data-cms="pros.driverText">Inscrivez-vous dans l’app avec votre pièce et les papiers de votre engin. Une fois validé par LETO, recevez les courses autour de vous, avec un son, même écran verrouillé.</p>
+          <a class="btn violet" href="#telecharger" data-apk>S’inscrire comme livreur</a>
         </article>
+      </div>
+    </section>
+
+    <section id="app" class="scene solid app-section" data-scene="faq">
+      <div class="app-wrap">
+        <div class="app-copy">
+          <span class="step">L’application</span>
+          <h2>Tout LETO dans votre poche.</h2>
+          <p>Commandez, suivez votre livreur sur la carte et partagez les codes de livraison. Livreurs : recevez les courses avec un son, même écran verrouillé.</p>
+          <div class="apk-box">
+            <a class="btn violet big-btn" href="#telecharger" data-apk><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18a.38.38 0 00-.66-.38l-1.86 3.22a11.4 11.4 0 00-9.84 0L5.22 5.92a.38.38 0 00-.66.38L6.4 9.48A10.8 10.8 0 001 18h22a10.8 10.8 0 00-5.4-8.52zM7 15.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm10 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg>Télécharger pour Android</a>
+            <small class="apk-meta" data-apk-meta>Fichier APK · Android 8 ou plus récent</small>
+          </div>
+          <ol class="apk-steps">
+            <li>Téléchargez le fichier APK sur votre téléphone Android.</li>
+            <li>Ouvrez-le. Si Android le demande, autorisez l’installation depuis cette source.</li>
+            <li>Ouvrez LETO, créez votre compte et commandez.</li>
+          </ol>
+          <small class="muted-note">iPhone : bientôt disponible.</small>
+        </div>
+        <div class="devices" aria-label="Écrans de l’application LETO sur Android">
+          <figure class="device back"><div class="device-screen"><img src="app/screen-2.png" alt="Suivi d’une livraison dans l’app LETO" loading="lazy"></div></figure>
+          <figure class="device front"><div class="device-screen"><img src="app/screen-1.png" alt="Commande d’une livraison dans l’app LETO" loading="lazy"></div></figure>
+        </div>
       </div>
     </section>
 
     <section id="faq" class="scene solid" data-scene="faq">
       <div class="faq">
         <h2>Questions fréquentes</h2>
+        <div id="faq-list">
         <details><summary>Comment je paie ma livraison ?</summary><p>En espèces, au livreur. Le prix est affiché et fixé avant de commander.</p></details>
         <details><summary>Combien d’adresses dans une même course ?</summary><p>Jusqu’à 10 destinataires. LETO calcule l’ordre le plus court et le prix baisse avec le nombre d’arrêts.</p></details>
         <details><summary>Que se passe-t-il si le destinataire est absent ?</summary><p>Le livreur attend sur place, prouve son passage (GPS et photo) et vous êtes prévenu. Vous pouvez contester depuis l’app.</p></details>
         <details><summary>C’est quoi un livreur indépendant ?</summary><p>Un livreur qui n’appartient à aucune entreprise partenaire, vérifié par LETO. Il est toujours signalé clairement avant que vous acceptiez.</p></details>
+        </div>
       </div>
     </section>
 
     <section id="telecharger" class="scene final" data-scene="final">
       <div class="card cta">
-        <h2>Votre prochain colis part maintenant.</h2>
-        <p>Téléchargez LETO, posez l’adresse, c’est parti.</p>
+        <h2 data-cms="final.title">Votre prochain colis part maintenant.</h2>
+        <p data-cms="final.text">Téléchargez LETO sur Android, posez l’adresse, c’est parti.</p>
         <div class="actions">
-          <a class="store" href="#top"><small>Bientôt sur</small><b>App Store</b></a>
-          <a class="store" href="#top"><small>Bientôt sur</small><b>Google Play</b></a>
+          <a class="store" href="#telecharger" data-apk><small data-apk-meta>Android · fichier APK</small><b>Télécharger l’app</b></a>
+          <span class="store soon"><small>Bientôt sur</small><b>iPhone</b></span>
         </div>
       </div>
     </section>
@@ -234,9 +260,53 @@
 
   <footer id="contact" class="footer">
     <span><b>LETO</b> Livraison à Abidjan</span>
-    <span>[Téléphone] · [E-mail] · [Adresse]</span>
+    <span class="contact" id="contact-line"><span data-cms="contact.address">Abidjan, Côte d’Ivoire</span></span>
     <span>© 2026 LETO · Carte © OpenStreetMap, OpenFreeMap</span>
   </footer>
+
+  <!-- Inscription d'une entreprise de livraison (validée par LETO) -->
+  <dialog id="apply" class="apply" aria-labelledby="apply-title">
+    <form id="apply-form" novalidate>
+      <div class="apply-head">
+        <h2 id="apply-title">Devenir entreprise partenaire</h2>
+        <button type="button" class="close" data-close aria-label="Fermer">×</button>
+      </div>
+      <p class="apply-intro">Votre demande est étudiée par LETO. Une fois acceptée, vous vous connectez au back-office avec le numéro et le mot de passe choisis ici.</p>
+      <fieldset>
+        <legend>L’entreprise</legend>
+        <label for="ap-name">Nom de l’entreprise<input id="ap-name" name="name" required maxlength="100" autocomplete="organization"></label>
+        <div class="row2">
+          <label for="ap-phone">Téléphone de l’entreprise<input id="ap-phone" name="phone" required inputmode="tel" placeholder="07 01 02 03 04"></label>
+          <label for="ap-commune">Commune<select id="ap-commune" name="commune"></select></label>
+        </div>
+        <div class="row2">
+          <label for="ap-drivers">Nombre de livreurs<input id="ap-drivers" name="drivers" type="number" min="0" max="10000" inputmode="numeric" placeholder="Ex. 10"></label>
+          <div class="checks-row" role="group" aria-label="Engins">
+            <span>Engins</span>
+            <label><input type="checkbox" name="vehicles" value="MOTO" checked> Moto</label>
+            <label><input type="checkbox" name="vehicles" value="CAR"> Voiture</label>
+            <label><input type="checkbox" name="vehicles" value="CARGO"> Cargo</label>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Le gérant (compte du back-office)</legend>
+        <div class="row2">
+          <label for="ap-mname">Nom et prénoms<input id="ap-mname" name="managerName" required maxlength="100" autocomplete="name"></label>
+          <label for="ap-mphone">Téléphone (identifiant)<input id="ap-mphone" name="managerPhone" required inputmode="tel" placeholder="07 01 02 03 04" autocomplete="tel"></label>
+        </div>
+        <label for="ap-pass">Mot de passe (6 caractères minimum)<input id="ap-pass" name="managerPassword" type="password" required minlength="6" autocomplete="new-password"></label>
+      </fieldset>
+      <label for="ap-msg">Message (facultatif)<textarea id="ap-msg" name="message" maxlength="800" rows="3" placeholder="Votre activité, vos zones de livraison…"></textarea></label>
+      <p class="apply-error" id="apply-error" role="alert" hidden></p>
+      <button class="btn violet" type="submit" id="apply-submit">Envoyer ma demande</button>
+    </form>
+    <div class="apply-done" id="apply-done" hidden>
+      <h2>Demande envoyée ✓</h2>
+      <p>Merci ! LETO étudie votre demande et vous contacte. Une fois acceptée, connectez-vous sur <b>sa.leto.performx.online</b> avec votre numéro et votre mot de passe.</p>
+      <button class="btn dark" type="button" data-close>Fermer</button>
+    </div>
+  </dialog>
 
   <script type="module" src="/src/main.ts"></script>
 </body>

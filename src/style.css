@@ -222,3 +222,53 @@ body.menu-open { overflow: hidden; }
   * { animation: none !important; transition: none !important; }
 }
 body.no-map .scroll-hint { display: none; }
+
+/* ---------- L'application (vrais écrans dans un téléphone Android) ---------- */
+.app-section { background: #fff; padding-top: 120px; padding-bottom: 40px; }
+.app-wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 56px; }
+.app-copy { flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.app-copy h2 { font-size: clamp(38px, 5vw, 60px); }
+.apk-box { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.big-btn { min-height: 56px; padding: 14px 24px; font-size: 17px; gap: 10px; }
+.btn svg { margin-right: 8px; flex: none; }
+.apk-meta { color: var(--muted); font-size: 13px; }
+.apk-steps { margin: 4px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; color: var(--text); font-size: 15px; line-height: 1.5; }
+.muted-note { color: var(--muted); font-size: 13px; }
+.devices { flex: 1 1 420px; min-width: 0; position: relative; height: 620px; display: flex; justify-content: center; }
+/* Téléphone Android : bords fins, caméra perforée, boutons latéraux */
+.device { position: absolute; margin: 0; width: 270px; height: 572px; border-radius: 42px; background: linear-gradient(145deg, #2a2a30, #0d0d10); padding: 9px; box-shadow: 0 50px 90px -35px rgba(18,18,20,.55), 0 0 0 1px #3a3a42 inset, 0 0 0 2px #0b0b0d; }
+.device::before { content: ''; position: absolute; right: -3px; top: 120px; width: 3px; height: 64px; border-radius: 0 3px 3px 0; background: #26262c; box-shadow: 0 86px 0 #26262c; }
+.device::after { content: ''; position: absolute; top: 22px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: #050507; box-shadow: 0 0 0 2px #15151a; z-index: 2; }
+.device-screen { width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: #f6f4fa; }
+.device-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.device.front { left: 50%; margin-left: -60px; top: 30px; z-index: 2; transform: rotate(4deg); }
+.device.back { left: 50%; margin-left: -230px; top: 0; transform: rotate(-6deg); filter: saturate(.95); }
+@media (max-width: 760px) {
+  .app-section { padding-top: 80px; }
+  .devices { height: 520px; transform: scale(.82); transform-origin: top center; margin-bottom: -80px; }
+}
+
+/* ---------- Inscription des entreprises ---------- */
+.apply { width: min(620px, calc(100vw - 24px)); max-height: calc(100vh - 32px); border: 0; border-radius: 24px; padding: 0; box-shadow: 0 40px 100px -30px rgba(18,18,20,.6); }
+.apply::backdrop { background: rgba(18, 18, 20, 0.55); backdrop-filter: blur(4px); }
+.apply form, .apply-done { padding: 26px; display: flex; flex-direction: column; gap: 14px; }
+.apply-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.apply-head h2 { font-size: 30px; }
+.close { width: 44px; height: 44px; border: 0; border-radius: 12px; background: #f1eef6; font-size: 26px; line-height: 1; cursor: pointer; color: var(--ink); }
+.apply-intro { font-size: 14.5px; }
+.apply fieldset { border: 1px solid #ece8f4; border-radius: 16px; padding: 14px; margin: 0; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.apply legend { padding: 0 6px; font-weight: 700; font-size: 14px; color: var(--violet); }
+.apply label { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; font-weight: 600; color: var(--text); min-width: 0; }
+.apply input:not([type="checkbox"]), .apply select, .apply textarea { font: inherit; font-weight: 400; font-size: 16px; padding: 11px 12px; border: 1px solid #d9d3e8; border-radius: 12px; background: #fff; color: var(--ink); min-height: 46px; width: 100%; }
+.apply input:focus-visible, .apply select:focus-visible, .apply textarea:focus-visible { outline: 3px solid #c4b5fd; border-color: var(--violet); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.checks-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; font-size: 13.5px; font-weight: 600; color: var(--text); }
+.checks-row > span { width: 100%; }
+.checks-row label { flex-direction: row; align-items: center; gap: 6px; font-weight: 500; min-height: 34px; }
+.apply-error { margin: 0; padding: 10px 12px; border-radius: 12px; background: #fdecee; color: #b4232f; font-size: 14px; }
+.apply .btn { width: 100%; min-height: 52px; font-size: 16px; border: 0; cursor: pointer; }
+.btn:disabled { opacity: .6; cursor: default; }
+.store.soon { opacity: .55; }
+.footer .contact a { color: var(--ink); }
+@media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
+button.btn { font: inherit; font-weight: 600; border: 0; cursor: pointer; }

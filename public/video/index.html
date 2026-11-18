@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LETO en une minute · Présentation</title>
+  <meta name="description" content="Découvrez LETO en une minute : commande en 30 secondes, suivi du livreur en direct, code de livraison, et un back-office pour les entreprises de livraison à Abidjan.">
+  <meta property="og:title" content="LETO en une minute">
+  <meta property="og:description" content="La livraison à Abidjan, en direct : commandez, suivez, recevez.">
+  <meta property="og:type" content="video.other">
+  <meta property="og:image" content="/media/leto-presentation-poster.jpg">
+  <meta property="og:video" content="/media/leto-presentation-horizontal.mp4">
+  <meta name="theme-color" content="#6d28d9">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="video.css">
+  <script src="video.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-in">
+      <a class="brand" href="/" aria-label="LETO, accueil">
+        <span class="brand-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 18.5a3 3 0 100-6 3 3 0 000 6z M18.5 18.5a3 3 0 100-6 3 3 0 000 6z M5.5 15.5l3.5-6h5l4.5 6 M9 9.5L7.5 6.5H5 M14 9.5l1.5-4H19"/></svg></span>
+        LETO
+      </a>
+      <a class="top-link" href="/pro/">Espace entreprise</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="intro">
+      <p class="eyebrow">Présentation</p>
+      <h1>LETO en une minute</h1>
+      <p class="lead">La livraison à Abidjan, en direct : commandez en 30 secondes, suivez votre livreur sur la carte, et faites remettre chaque colis à la bonne personne grâce au code de livraison.</p>
+    </section>
+
+    <div class="player" id="player">
+      <video id="video" controls playsinline preload="metadata"
+        poster="/media/leto-presentation-poster.jpg"
+        data-h="/media/leto-presentation-horizontal.mp4" data-hposter="/media/leto-presentation-poster.jpg"
+        data-v="/media/leto-presentation-vertical.mp4" data-vposter="/media/leto-presentation-poster-vertical.jpg"
+        aria-label="Vidéo de présentation de LETO">
+        <source src="/media/leto-presentation-horizontal.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p class="formats">
+      <a id="download" href="/media/leto-presentation-horizontal.mp4" download>Télécharger la vidéo</a>
+      <span aria-hidden="true">·</span>
+      <a href="/media/leto-presentation-horizontal.mp4" download>Format horizontal (16:9)</a>
+      <span aria-hidden="true">·</span>
+      <a href="/media/leto-presentation-vertical.mp4" download>Format vertical (9:16)</a>
+    </p>
+
+    <section class="cards" aria-label="Ce que fait LETO">
+      <article class="card">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11a7 7 0 0114 0c0 4.9-7 11-7 11z M12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg></span>
+        <h2>Suivi en direct</h2>
+        <p>La position du livreur et l’heure d’arrivée, mises à jour en temps réel, à partager par lien.</p>
+      </article>
+      <article class="card">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.4-3 7.8-7 9-4-1.2-7-4.6-7-9V6l7-3z M9 12l2 2 4-4"/></svg></span>
+        <h2>Livré à la bonne personne</h2>
+        <p>Jusqu’à 10 destinataires par course, chacun avec son code. Photo et GPS en preuve.</p>
+      </article>
+      <article class="card">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4z M2 19h20 M8 12l2.5-2.5 2 2L16 8"/></svg></span>
+        <h2>Pour les entreprises</h2>
+        <p>Carte de la flotte, commandes, notifications et crédit, depuis un ordinateur.</p>
+      </article>
+    </section>
+
+    <div class="actions">
+      <a class="btn primary" href="/">Découvrir LETO</a>
+      <a class="btn" href="/#app" id="apk">Télécharger l’app</a>
+    </div>
+  </main>
+
+  <footer class="foot">LETO · Livraison à Abidjan</footer>
+</body>
+</html>

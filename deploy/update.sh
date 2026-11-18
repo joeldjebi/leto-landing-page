@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Met à jour la landing page LETO sur le serveur :
-#   cd /var/www/leto/leto-landing && SITE_URL=https://votre-domaine WEB_ROOT=/chemin/du/site bash deploy/update.sh
+#   cd /var/www/leto/leto-landing-page && SITE_URL=https://votre-domaine WEB_ROOT=/chemin/du/site bash deploy/update.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
 : "${SITE_URL:?Indiquez SITE_URL, ex. SITE_URL=https://leto.ci}"

@@ -13,10 +13,10 @@ Scènes et caméra : `src/main.ts`.
 
 ## Mise en ligne
 
-Site statique (dossier `dist/`). Sur le serveur, une fois le dépôt cloné dans `/var/www/leto/leto-landing` :
+Site statique (dossier `dist/`). Sur le serveur, une fois le dépôt cloné dans `/var/www/leto/leto-landing-page` :
 
 ```bash
-cd /var/www/leto/leto-landing && SITE_URL=https://votre-domaine WEB_ROOT=/chemin/du/dossier/du/domaine bash deploy/update.sh
+cd /var/www/leto/leto-landing-page && SITE_URL=https://votre-domaine WEB_ROOT=/chemin/du/dossier/du/domaine bash deploy/update.sh
 ```
 
 - `SITE_URL` : adresse du site (aperçus WhatsApp / Facebook, Google).

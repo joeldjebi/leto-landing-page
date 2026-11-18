@@ -266,7 +266,7 @@
         <legend>L’entreprise</legend>
         <label for="ap-name">Nom de l’entreprise<input id="ap-name" name="name" required maxlength="100" autocomplete="organization"></label>
         <div class="row2">
-          <label for="ap-phone">Téléphone de l’entreprise<input id="ap-phone" name="phone" required inputmode="tel" placeholder="07 01 02 03 04"></label>
+          <label for="ap-phone">Téléphone de l’entreprise<span class="ap-tel"><span class="ap-cc" data-cc-for="ap-phone"><span class="ap-flag" aria-hidden="true">🇨🇮</span><span class="ap-dial">+225</span></span><input id="ap-phone" name="phone" type="tel" required inputmode="tel" placeholder="07 01 02 03 04" autocomplete="off"></span></label>
           <label for="ap-commune">Commune<select id="ap-commune" name="commune"></select></label>
         </div>
         <div class="row2">
@@ -283,7 +283,7 @@
         <legend>Le gérant (compte du back-office)</legend>
         <div class="row2">
           <label for="ap-mname">Nom et prénoms<input id="ap-mname" name="managerName" required maxlength="100" autocomplete="name"></label>
-          <label for="ap-mphone">Téléphone (identifiant)<input id="ap-mphone" name="managerPhone" required inputmode="tel" placeholder="07 01 02 03 04" autocomplete="tel"></label>
+          <label for="ap-mphone">Téléphone (identifiant)<span class="ap-tel"><span class="ap-cc" data-cc-for="ap-mphone"><span class="ap-flag" aria-hidden="true">🇨🇮</span><span class="ap-dial">+225</span></span><input id="ap-mphone" name="managerPhone" type="tel" required inputmode="tel" placeholder="07 01 02 03 04" autocomplete="tel-national"></span></label>
         </div>
         <label for="ap-pass">Mot de passe (6 caractères minimum)<input id="ap-pass" name="managerPassword" type="password" required minlength="6" autocomplete="new-password"></label>
       </fieldset>

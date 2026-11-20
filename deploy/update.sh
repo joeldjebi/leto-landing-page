@@ -12,6 +12,14 @@ echo "→ Dépendances"
 npm ci --no-audit --no-fund
 echo "→ Construction (SITE_URL=$SITE_URL)"
 SITE_URL="$SITE_URL" npm run build
+# Fichiers de public/ servis avec un cache d'un an : la page vidéo les appelle avec leur empreinte
+# (video.js?v=…), sinon les navigateurs garderaient l'ancienne version après une mise à jour
+echo "→ Versions des fichiers de la page vidéo"
+for f in video.js video.css; do
+  [ -f "dist/video/$f" ] || continue
+  h=$( (md5sum "dist/video/$f" 2>/dev/null || md5 -r "dist/video/$f") | cut -c1-10)
+  perl -pi -e "s#(href|src)=\"\Q$f\E(\?v=[0-9a-f]+)?\"#\$1=\"$f?v=$h\"#g" dist/video/index.html
+done
 echo "→ Publication dans $WEB_ROOT"
 mkdir -p "$WEB_ROOT"
 rsync -a --delete --exclude '.well-known' --exclude 'pro' dist/ "$WEB_ROOT/"

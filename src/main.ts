@@ -13,7 +13,7 @@ import { Scene3D, type LngLat, type Placed } from './scene3d';
 maplibregl.setWorkerUrl(workerUrl);
 
 const STYLE_URL = 'https://tiles.openfreemap.org/styles/liberty';
-const VIOLET = '#6D28D9';
+const VIOLET = '#E86A17'; // tracés : orange vif de la charte
 
 const main = new Route(data.main.coords as LngLat[]);
 const tour = new Route(data.tour.coords as LngLat[]);
@@ -131,7 +131,7 @@ async function start() {
     const s3d = new Scene3D(pickup);
     map.addLayer(s3d);
     const rider = s3d.add(makeRider(), main.at(0), { heading: main.heading(0), screenPx: 58, size: 2.1 });
-    const seller = s3d.add(makePerson({ shirt: 0xe0763a, headwrap: 0x6d28d9, parcel: true }), offset(pickup, -26, 16), { heading: main.heading(0) + Math.PI / 2, screenPx: 52, size: 1.85 });
+    const seller = s3d.add(makePerson({ shirt: 0xe0763a, headwrap: 0xfbc02d, parcel: true }), offset(pickup, -26, 16), { heading: main.heading(0) + Math.PI / 2, screenPx: 52, size: 1.85 });
     const buyer = s3d.add(makePerson({ shirt: 0x2f8f6b, skin: 0x5a3a24, parcel: true }), offset(client, 24, -14), { heading: main.heading(1) + Math.PI, screenPx: 52, size: 1.85 });
     const pin = s3d.add(makePin(), client, { screenPx: 54, size: 4.5, visible: false });
     // Remise du colis : la moto garée, le livreur à pied avec le colis

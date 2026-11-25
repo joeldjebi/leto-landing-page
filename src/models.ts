@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 
 /** Couleurs LETO */
-export const VIOLET = 0x6d28d9;
+/** Couleur de marque dans la scène 3D : orange vif de la charte (ancien nom conservé) */
+export const VIOLET = 0xe86a17;
 export const INK = 0x121214;
 
 /** Ombre douce au sol (disque dégradé) */
@@ -35,9 +36,9 @@ function boxTexture() {
   const g = c.getContext('2d')!;
   g.fillStyle = '#ffffff';
   g.fillRect(0, 0, 256, 256);
-  g.fillStyle = '#6D28D9';
+  g.fillStyle = '#FBC02D';
   g.fillRect(0, 96, 256, 64);
-  g.fillStyle = '#ffffff';
+  g.fillStyle = '#1A1A1A';
   g.font = '800 46px "Barlow Condensed", Arial, sans-serif';
   g.textAlign = 'center';
   g.textBaseline = 'middle';
@@ -245,7 +246,7 @@ export function makeShop() {
 /** Épingle de destination (violette, flottante) */
 export function makePin() {
   const g = new THREE.Group();
-  const head = new THREE.Mesh(new THREE.SphereGeometry(1.1, 24, 18), mat(VIOLET, { roughness: 0.3, metalness: 0.2, emissive: 0x2a0b66, emissiveIntensity: 0.4 }));
+  const head = new THREE.Mesh(new THREE.SphereGeometry(1.1, 24, 18), mat(VIOLET, { roughness: 0.3, metalness: 0.2, emissive: 0x5a2306, emissiveIntensity: 0.4 }));
   head.position.y = 3.4;
   g.add(head);
   const tip = new THREE.Mesh(new THREE.ConeGeometry(0.75, 1.9, 24), mat(VIOLET, { roughness: 0.3 }));

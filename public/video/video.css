@@ -4,12 +4,12 @@
   --ink: #17151f;
   --muted: #5d586b;
   --line: #e7e4ee;
-  --accent: #6d28d9;
-  --accent-soft: #f0eafe;
+  --accent: #c2410c; /* liens, intitulés : orange foncé lisible */
+  --accent-soft: #fff4d6;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
-  :root { --bg: #0f0d16; --card: #1a1724; --ink: #f4f2f8; --muted: #b0aac0; --line: #2b2738; --accent: #a78bfa; --accent-soft: #261c42; color-scheme: dark; }
+  :root { --bg: #0b0b0d; --card: #18181b; --ink: #f4f4f5; --muted: #a1a1aa; --line: #2a2a2f; --accent: #fbc02d; --accent-soft: #3a2a0e; color-scheme: dark; }
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
@@ -17,8 +17,8 @@ a { color: var(--accent); }
 .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
 .top { background: var(--card); border-bottom: 1px solid var(--line); }
 .top-in { height: 56px; display: flex; align-items: center; justify-content: space-between; }
-.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: .04em; }
-.brand-icon { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-family: 'Unbounded', 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: .02em; }
+.brand-icon { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; background: #1a1a1a; }
 .top-link { font-size: 14px; font-weight: 600; text-decoration: none; }
 .intro { text-align: center; padding: 56px 0 28px; }
 .eyebrow { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
@@ -39,7 +39,7 @@ h1 { margin: 12px 0 0; font-size: clamp(32px, 6vw, 46px); line-height: 1.08; let
 .card p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); }
 .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 32px 0 0; }
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 24px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-weight: 600; font-size: 15px; text-decoration: none; }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary { background: #fbc02d; border-color: #fbc02d; color: #1a1a1a; }
 @media (prefers-color-scheme: dark) { .btn.primary { color: #17151f; } }
 .btn:focus-visible, .formats a:focus-visible, .brand:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .foot { text-align: center; color: var(--muted); font-size: 13px; padding: 48px 16px 40px; }
@@ -48,3 +48,5 @@ h1 { margin: 12px 0 0; font-size: clamp(32px, 6vw, 46px); line-height: 1.08; let
   .cards { grid-template-columns: 1fr; }
   .actions .btn { width: 100%; max-width: 320px; }
 }
+
+.brand-icon svg { width: 100%; height: 100%; display: block; }

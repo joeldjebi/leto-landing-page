@@ -58,7 +58,7 @@ async function loadStyle(): Promise<StyleSpecification> {
         ...l.paint,
         'fill-extrusion-color': ['interpolate', ['linear'], ['get', 'render_height'], 0, '#ECE6DA', 20, '#E3DDD2', 60, '#D7DCE4', 120, '#C9D3E0'],
         'fill-extrusion-opacity': 0.96,
-        'fill-extrusion-vertical-gradient': true,
+        'fill-extrusion-vertical-gradient': false,
       };
       l.minzoom = 13;
     }
@@ -401,11 +401,11 @@ function facade(kind: 'day' | 'night' | 'low-day' | 'low-night'): ImageData {
   const g = c.getContext('2d')!;
   const night = kind.endsWith('night');
   const low = kind.startsWith('low');
-  g.fillStyle = night ? (low ? '#2a2836' : '#2f2c40') : low ? '#EFE7DA' : '#E6E2DA';
+  g.fillStyle = night ? (low ? '#2a2a2a' : '#2f2f2f') : low ? '#EFE7DA' : '#E6E2DA';
   g.fillRect(0, 0, S, S);
   if (low) {
     // Maisons et petits bâtiments : enduit uni (pas de fenêtres sur les toits vus d'en haut)
-    g.fillStyle = night ? '#302d3f' : '#E8DFD0';
+    g.fillStyle = night ? '#303030' : '#E8DFD0';
     for (let i = 0; i < 10; i++) g.fillRect((i * 41) % S, (i * 67) % S, 18, 3);
     return g.getImageData(0, 0, S, S);
   }
@@ -415,7 +415,7 @@ function facade(kind: 'day' | 'night' | 'low-day' | 'low-night'): ImageData {
   for (let row = 0; row < 6; row++) {
     for (let col = 0; col < 6; col++) {
       const x = 6 + col * 20, y = 6 + row * 20;
-      if (night) g.fillStyle = rnd() < 0.5 ? (rnd() < 0.7 ? '#f2bd62' : '#fde4a8') : '#3a3650';
+      if (night) g.fillStyle = rnd() < 0.5 ? (rnd() < 0.7 ? '#f2bd62' : '#fde4a8') : '#3a3a3a';
       else g.fillStyle = rnd() < 0.2 ? '#b4c6d4' : '#c2d2de';
       g.fillRect(x, y, 11, 12);
     }
@@ -435,21 +435,21 @@ function applyNight(map: maplibregl.Map, on: boolean) {
   };
   for (const l of map.getStyle().layers) {
     if (l.id.startsWith('main-') || l.id.startsWith('tour-') || l.id === 'leto-3d') continue;
-    if (l.type === 'background') set(l.id, 'background-color', '#15141d');
+    if (l.type === 'background') set(l.id, 'background-color', '#161616');
     else if (l.type === 'fill') {
       if (l.id === 'water') set(l.id, 'fill-color', '#1b2740');
-      else set(l.id, 'fill-color', '#1f1d29');
+      else set(l.id, 'fill-color', '#1f1f1f');
     } else if (l.type === 'fill-extrusion') {
       m.setPaintProperty(l.id, 'fill-extrusion-pattern', facadeExpr(on));
     } else if (l.type === 'line') {
-      if (/casing/.test(l.id)) set(l.id, 'line-color', '#121119');
+      if (/casing/.test(l.id)) set(l.id, 'line-color', '#121212');
       else if (/water|river/.test(l.id)) set(l.id, 'line-color', '#1b2740');
       else if (/motorway|trunk|primary|secondary|tertiary/.test(l.id)) set(l.id, 'line-color', '#e0a458');
       else if (/road|bridge|tunnel|street|minor|link|service/.test(l.id)) set(l.id, 'line-color', '#6d5a45');
-      else set(l.id, 'line-color', '#2c2a38');
+      else set(l.id, 'line-color', '#2c2c2c');
     } else if (l.type === 'symbol') {
-      set(l.id, 'text-color', '#d8d2ea');
-      set(l.id, 'text-halo-color', '#15141d');
+      set(l.id, 'text-color', '#dddddd');
+      set(l.id, 'text-halo-color', '#161616');
     }
   }
 }

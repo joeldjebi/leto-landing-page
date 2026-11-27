@@ -1,6 +1,6 @@
 /** Contenu géré par l'admin (textes, coordonnées, APK) et inscription des entreprises de livraison */
 
-export const API_URL: string = (import.meta.env.VITE_API_URL as string | undefined) ?? 'https://api.leto.performx.online';
+export const API_URL: string = (import.meta.env.VITE_API_URL as string | undefined) ?? 'https://api.vite.ci';
 
 interface Landing {
   faq: { q: string; a: string }[];

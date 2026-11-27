@@ -22,7 +22,7 @@
   if (mq.addEventListener) mq.addEventListener('change', pick); else mq.addListener(pick);
 
   // Lien « Télécharger l'app » : l'APK publié par l'admin (back-office › Landing page)
-  var API = 'https://api.leto.performx.online';
+  var API = 'https://api.vite.ci';
   if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') API = 'http://localhost:3000';
   // Statistiques de visite (admin › Visites vidéo) : date, pays, appareil, provenance, durée regardée.
   // Aucune donnée personnelle : l'adresse IP sert seulement à déduire le pays côté serveur.

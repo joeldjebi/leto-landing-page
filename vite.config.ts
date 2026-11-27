@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 const SITE_URL = (process.env.SITE_URL ?? '').replace(/\/$/, '');
 /** Back-office (les anciens liens #/… y sont renvoyés) */
 // Liens de suivi (#/suivi/…) et anciens liens : vers l'application web publique (/pro), jamais vers l'administration
-const BO_URL = (process.env.BO_URL ?? 'https://leto.performx.online/pro').replace(/\/$/, '');
+const BO_URL = (process.env.BO_URL ?? 'https://vite.ci/pro').replace(/\/$/, '');
 
 export default defineConfig({
   plugins: [{ name: 'site-url', transformIndexHtml: (html) => html.replaceAll('%SITE_URL%', SITE_URL).replaceAll('%BO_URL%', BO_URL) }],

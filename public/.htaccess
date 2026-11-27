@@ -28,4 +28,6 @@
   RewriteEngine On
   RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # Lien de suivi court (vite.ci/<jeton>) : page de suivi de l'espace web
+  RewriteRule ^([0-9a-f]{32})/?$ /pro/#/suivi/$1 [NE,R=302,L]
 </IfModule>

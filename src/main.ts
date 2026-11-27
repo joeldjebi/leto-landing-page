@@ -366,7 +366,7 @@ async function start() {
         v.placed.heading = v.route.heading(t) + (v.dir < 0 ? Math.PI : 0);
       }
 
-      // Nuit : la ville s'allume, la flotte LETO circule
+      // Nuit : la ville s'allume, la flotte VITE circule
       night = lerp(night, wantNight, 0.05);
       if ((night > 0.5) !== nightApplied) {
         nightApplied = night > 0.5;

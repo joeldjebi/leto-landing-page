@@ -57,6 +57,6 @@
     if (!c || !c.apk || !c.apk.url) return;
     var a = document.getElementById('apk');
     a.href = c.apk.url.indexOf('http') === 0 ? c.apk.url : API + c.apk.url;
-    a.setAttribute('download', 'LETO.apk');
+    a.setAttribute('download', 'VITE.apk');
   }).catch(function () {});
 })();

@@ -147,7 +147,7 @@ main { position: relative; z-index: 2; }
 .bar { height: 6px; border-radius: 3px; background: #333333; overflow: hidden; }
 .bar span { display: block; height: 100%; width: 0; background: #f28c1a; border-radius: 3px; transition: width .2s linear; }
 
-/* ---------- Téléphone : l'app LETO ---------- */
+/* ---------- Téléphone : l'app VITE ---------- */
 .phone { position: fixed; z-index: 25; right: max(28px, 4vw); top: 50%; width: 280px; height: 568px; margin-top: -270px; border-radius: 44px; background: #111111; padding: 12px; box-shadow: 0 40px 90px -30px rgba(18,18,20,.65), inset 0 0 0 2px #2a2933; opacity: 0; transform: translateY(24px) scale(.97); transition: opacity .45s ease, transform .45s ease; pointer-events: none; }
 .phone.on { opacity: 1; transform: none; }
 .phone::before { content: ''; position: absolute; top: 18px; left: 50%; width: 84px; height: 24px; margin-left: -42px; border-radius: 14px; background: #111111; z-index: 2; }
@@ -294,6 +294,6 @@ button.btn { font: inherit; font-weight: 600; border: 0; cursor: pointer; }
 .pro-login { color: inherit; font-weight: 600; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; opacity: .9; }
 .pro-login:hover { opacity: 1; }
 
-/* Mot « LETO » : police de la charte */
+/* Mot « VITE » : police de la charte */
 .brand { font-family: 'Unbounded', 'Inter', sans-serif; font-weight: 700; letter-spacing: 0.02em; }
 .brand-icon svg { width: 100%; height: 100%; display: block; }

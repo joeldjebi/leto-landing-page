@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-/** Couleurs LETO */
+/** Couleurs VITE */
 /** Couleur de marque dans la scène 3D : orange vif de la charte (ancien nom conservé) */
 export const VIOLET = 0xe86a17;
 export const INK = 0x121214;
@@ -28,7 +28,7 @@ export function groundShadow(rx: number, rz: number, opacity = 0.32) {
 const mat = (color: number, opts: Partial<THREE.MeshStandardMaterialParameters> = {}) =>
   new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0.05, ...opts });
 
-/** Texture du caisson : bande violette et « LETO » */
+/** Texture du caisson : bande violette et « VITE » */
 function boxTexture() {
   const c = document.createElement('canvas');
   c.width = 256;
@@ -42,7 +42,7 @@ function boxTexture() {
   g.font = '800 46px "Barlow Condensed", Arial, sans-serif';
   g.textAlign = 'center';
   g.textBaseline = 'middle';
-  g.fillText('LETO', 128, 130);
+  g.fillText('VITE', 128, 130);
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
   return t;
@@ -50,7 +50,7 @@ function boxTexture() {
 let sharedBoxTex: THREE.Texture | null = null;
 
 /**
- * Livreur LETO sur sa moto (unités : mètres, face vers +X, Y vers le haut).
+ * Livreur VITE sur sa moto (unités : mètres, face vers +X, Y vers le haut).
  * Proportions réelles d'une moto 125 cm³ (≈ 2 m de long).
  */
 export function makeRider(opts: { jacket?: number; helmet?: number; lights?: boolean; rider?: boolean } = {}) {
@@ -99,7 +99,7 @@ export function makeRider(opts: { jacket?: number; helmet?: number; lights?: boo
   exhaust.position.set(-0.45, 0.42, -0.2);
   g.add(exhaust);
 
-  // Caisson de livraison LETO
+  // Caisson de livraison VITE
   sharedBoxTex ??= boxTexture();
   const boxMats = [mat(0xffffff, { map: sharedBoxTex }), mat(0xffffff, { map: sharedBoxTex }), mat(0xf3f0fa), mat(0xe8e3f2), mat(0xffffff, { map: sharedBoxTex }), mat(0xffffff, { map: sharedBoxTex })];
   const box = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.46, 0.46), boxMats);

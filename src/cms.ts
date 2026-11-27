@@ -50,7 +50,7 @@ export async function applyContent() {
     const href = c.apk.url.startsWith('http') ? c.apk.url : `${API_URL}${c.apk.url}`;
     document.querySelectorAll<HTMLAnchorElement>('a[data-apk]').forEach((a) => {
       a.href = href;
-      a.setAttribute('download', 'LETO.apk');
+      a.setAttribute('download', 'VITE.apk');
       a.rel = 'noopener';
     });
     const meta = [`Android · APK${c.apk.version ? ` v${c.apk.version}` : ''}`, c.apk.sizeMb ? `${String(c.apk.sizeMb).replace('.', ',')} Mo` : ''].filter(Boolean).join(' · ');
@@ -124,7 +124,7 @@ async function loadCountries() {
   }
 }
 
-/** Formulaire « Devenir entreprise partenaire » → demande validée par LETO */
+/** Formulaire « Devenir entreprise partenaire » → demande validée par VITE */
 export function setupApply() {
   const dlg = document.getElementById('apply') as HTMLDialogElement | null;
   const form = document.getElementById('apply-form') as HTMLFormElement | null;
